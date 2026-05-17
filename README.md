@@ -64,29 +64,15 @@ The context value is memoised so unrelated re-renders don't cascade through the 
 
 ---
 
-## How real AI-based field extraction would work
+## How real AI-based field extraction from scanned forms is Handled
 
-The current backend is a Cloudflare Worker that returns a structured `AnalysisResponse`. For a production-grade pipeline I would build it as follows:
+Right now the frontend just hits a Cloudflare Worker that wraps a free vision model and returns the structured `AnalysisResponse` the UI consumes. That's enough for the demo but the bboxes drift sometimes (hence the running banner).
 
-1. **Ingest & normalise**
-   - Accept the PDF, render each page to a high-DPI image (PDF.js or `pdf2image` server-side).
-   - Run OCR (Google Document AI, AWS Textract, or open-source: PaddleOCR / Tesseract) to get text plus per-word bounding boxes and confidence.
+If this were production I'd expect the backend to:
 
-2. **Layout-aware extraction**
-   - For scanned forms, pure text OCR isn't enough — field labels and values are spatially related. Use either:
-     - A **vision-language model** (Claude with vision, GPT-4o, or Gemini) with a prompt that includes the page image and a JSON schema of expected fields, asking for `{ label, value, page, bbox, confidence }` per field. This handles novel layouts with zero training.
-     - Or a **specialised model** (LayoutLMv3, Donut, Document AI Form Parser) when the form template is fixed and volume is high — cheaper per call once trained.
+- run OCR (Optical Character Recognition) first (Textract / Document AI / PaddleOCR) to get real per-word bounding boxes,
+- pass the page + OCR text to a vision model with a fixed JSON schema for fields/tables,
+- snap each field's bbox to the OCR words instead of trusting the model's coordinates — that's where most of the highlight jitter comes from,
+- return a `confidence` per field so the UI can flag low-confidence ones for the user to verify.
 
-3. **Schema-validated output**
-   - Define the target schema (e.g. with Zod or Pydantic) and validate the model's JSON. Re-prompt on schema failure with the validation error attached — far more reliable than free-form parsing.
-   - Enforce types per field (dates, currency, PAN/Aadhaar regex, etc.) and surface validation errors back to the UI alongside the value, so the user can correct low-confidence fields.
-
-4. **Bounding-box grounding**
-   - The UI highlights fields on the page, so each extracted field needs an accurate bbox. For VLM-based extraction, ask the model to return the *text span* of the value and then look that span up against OCR word boxes to compute the bbox deterministically — models hallucinate coordinates but OCR doesn't.
-
-5. **Caching & cost control**
-   - Hash the PDF (sha256) and cache the analysis result — re-uploads are free.
-   - Use prompt caching on the system prompt + schema (large, static) when calling the Claude API, so only the per-page image content is billed at full rate.
-
-6. **Human-in-the-loop**
-   - Surface confidence per field. Anything below a threshold gets flagged in the right panel for review before submission. Corrections can be logged as training data for fine-tuning a smaller, cheaper extractor over time.
+From the frontend side nothing really changes — the contract is already `AnalysisResponse`, so swapping the worker for a better pipeline is a drop-in.

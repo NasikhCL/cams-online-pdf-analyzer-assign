@@ -1,4 +1,6 @@
 import { usePdf } from '../../context/usePdf';
+import { Banner } from '../Banner';
+import { ClearHighlightButton } from '../ClearHighlightButton';
 import { ContentArea } from '../ContentArea';
 import { PdfUploader } from '../PdfUploader';
 import styles from './Layout.module.css';
@@ -14,6 +16,7 @@ export function Layout() {
 
   return (
     <div className={styles.app}>
+      <Banner />
       <header className={styles.topbar}>
         <span>CAMS Online</span>
         {pdf && (
@@ -36,6 +39,7 @@ export function Layout() {
           </div>
         )}
       </main>
+      <ClearHighlightButton />
     </div>
   );
 }
