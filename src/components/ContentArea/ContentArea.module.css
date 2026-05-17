@@ -1,0 +1,32 @@
+.content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+}
+
+.left,
+.right {
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.divider {
+  flex: 0 0 6px;
+  cursor: col-resize;
+  background: #e2e8f0;
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+.divider:hover,
+.dividerActive {
+  background: #2563eb;
+}
+
+.divider::after {
+  content: '';
+  position: absolute;
+  inset: 0 -3px;
+}

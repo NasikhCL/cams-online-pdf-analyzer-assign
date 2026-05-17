@@ -1,0 +1,128 @@
+.viewer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: #1f2937;
+  color: #f8fafc;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #111827;
+  border-bottom: 1px solid #374151;
+  font-size: 0.875rem;
+}
+
+.zoomGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.toolbar button {
+  background: #374151;
+  color: #f8fafc;
+  border: none;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  min-width: 2rem;
+}
+
+.toolbar button:hover {
+  background: #4b5563;
+}
+
+.toolbar button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.zoomLabel,
+.pageInfo {
+  font-variant-numeric: tabular-nums;
+  min-width: 3.5rem;
+  text-align: center;
+}
+
+.documentArea {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.documentTransform {
+  display: flex;
+  justify-content: center;
+}
+
+.document {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.pageWrapper {
+  position: relative;
+}
+
+.page {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.highlight {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 2px;
+  animation: highlightPulse 1.2s ease-out;
+}
+
+.highlight_label {
+  background: rgba(250, 204, 21, 0.35);
+  border: 2px solid rgba(202, 138, 4, 0.9);
+}
+
+.highlight_value {
+  background: rgba(59, 130, 246, 0.3);
+  border: 2px solid rgba(37, 99, 235, 0.95);
+}
+
+.highlight_cell {
+  background: rgba(34, 197, 94, 0.28);
+  border: 2px solid rgba(22, 163, 74, 0.95);
+}
+
+.highlight_table {
+  background: rgba(168, 85, 247, 0.15);
+  border: 2px dashed rgba(126, 34, 206, 0.9);
+}
+
+@keyframes highlightPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(37, 99, 235, 0);
+  }
+}
+
+.placeholder,
+.error {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #fca5a5;
+}
