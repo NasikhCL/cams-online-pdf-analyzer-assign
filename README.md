@@ -71,8 +71,7 @@ Right now the frontend just hits a Cloudflare Worker that wraps a free vision mo
 If this were production I'd expect the backend to:
 
 - run OCR (Optical Character Recognition) first (Textract / Document AI / PaddleOCR) to get real per-word bounding boxes,
-- pass the page + OCR text to a vision model with a fixed JSON schema for fields/tables,
-- snap each field's bbox to the OCR words instead of trusting the model's coordinates — that's where most of the highlight jitter comes from,
+- pass the page + OCR text to a vision model with a fixed JSON schema,
 - return a `confidence` per field so the UI can flag low-confidence ones for the user to verify.
 
 From the frontend side nothing really changes — the contract is already `AnalysisResponse`, so swapping the worker for a better pipeline is a drop-in.
