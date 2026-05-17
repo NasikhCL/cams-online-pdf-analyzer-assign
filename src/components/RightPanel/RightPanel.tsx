@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { usePdf } from '../../context/PdfContext';
+import { usePdf } from '../../context/usePdf';
 import { analyzePdf } from '../../lib/analyzePdf';
 import type { UploadedPdf } from '../../types/pdf';
 import type {

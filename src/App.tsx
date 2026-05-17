@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Layout } from './components/Layout';
-import { PdfProvider, usePdf } from './context/PdfContext';
+import { PdfProvider } from './context/PdfContext';
+import { usePdf } from './context/usePdf';
 
 function ClickOutsideClearer() {
   const { setSelectedFieldId } = usePdf();

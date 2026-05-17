@@ -1,4 +1,4 @@
-import { usePdf } from '../../context/PdfContext';
+import { usePdf } from '../../context/usePdf';
 import { ContentArea } from '../ContentArea';
 import { PdfUploader } from '../PdfUploader';
 import styles from './Layout.module.css';

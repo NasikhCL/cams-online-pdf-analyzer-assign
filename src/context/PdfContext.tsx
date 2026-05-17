@@ -1,9 +1,9 @@
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { createContext, useCallback, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { UploadedPdf } from '../types/pdf';
 import type { AnalysisResponse } from '../types/analysis';
 
-interface PdfContextValue {
+export interface PdfContextValue {
   pdf: UploadedPdf | null;
   setPdf: (file: File) => void;
   clearPdf: () => void;
@@ -104,10 +104,5 @@ export function PdfProvider({ children }: { children: ReactNode }) {
   return <PdfContext.Provider value={value}>{children}</PdfContext.Provider>;
 }
 
-export const usePdf = (): PdfContextValue => {
-  const ctx = useContext(PdfContext);
-  if (!ctx) throw new Error('usePdf must be used within a PdfProvider');
-  return ctx;
-};
-
+export { PdfContext };
 export default PdfProvider;

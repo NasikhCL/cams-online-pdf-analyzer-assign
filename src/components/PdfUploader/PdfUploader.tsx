@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import type { ChangeEvent, DragEvent, MouseEvent } from 'react';
-import { usePdf } from '../../context/PdfContext';
+import { usePdf } from '../../context/usePdf';
 import sampleFormUrl from '../../assets/sample-form.pdf?url';
 import { dummyResponse } from '../../dummyresponse';
 import type { AnalysisResponse } from '../../types/analysis';

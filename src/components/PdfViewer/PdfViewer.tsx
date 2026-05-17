@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { usePdf } from '../../context/PdfContext';
+import { usePdf } from '../../context/usePdf';
 import { cellKey } from '../../lib/analysisKeys';
 import type { AnalysisResponse, BoxPercent } from '../../types/analysis';
 import styles from './PdfViewer.module.css';
