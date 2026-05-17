@@ -104,7 +104,7 @@ export function PdfProvider({ children }: { children: ReactNode }) {
   return <PdfContext.Provider value={value}>{children}</PdfContext.Provider>;
 }
 
-const usePdf = (): PdfContextValue => {
+export const usePdf = (): PdfContextValue => {
   const ctx = useContext(PdfContext);
   if (!ctx) throw new Error('usePdf must be used within a PdfProvider');
   return ctx;
