@@ -57,7 +57,6 @@ Key design choices:
 
 - **Object URLs are revoked** whenever the PDF is replaced or cleared, to avoid blob leaks.
 - **A pending-timer ref** lets the demo flow show the "analyzing…" state briefly before the prebaked response appears, and is cancelled if the user uploads again mid-delay.
-- **Click-outside clearing** of `selectedFieldId` is centralised in `App.tsx` rather than scattered across components.
 - **No global form state** — field edits are owned by the analysis object itself, updated via `setAnalysis`, so the right panel and viewer always agree on truth.
 
 The context value is memoised so unrelated re-renders don't cascade through the tree.
